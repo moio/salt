@@ -588,8 +588,12 @@ class LocalClient(object):
             if key not in opts:
                 opts[key] = val
         batch = salt.cli.batch.Batch(opts, eauth=eauth, quiet=True)
-        for ret in batch.run():
-            yield ret
+        return lambda: self.balalala(batch)
+
+    def balalala(self, batch):
+        log.error('Baymax runs batch now...')
+        list(batch.run())
+        log.error('Baymax is done.')
 
     def cmd(self,
             tgt,

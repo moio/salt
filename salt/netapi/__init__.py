@@ -125,7 +125,10 @@ class NetapiClient(object):
             returns
         '''
         local = salt.client.get_local_client(mopts=self.opts)
-        return local.cmd_batch(*args, **kwargs)
+        batching_function = local.cmd_batch(*args, **kwargs)
+        import threading
+        threading.Thread(target=batching_function).start()
+        return []
 
     def ssh(self, *args, **kwargs):
         '''
